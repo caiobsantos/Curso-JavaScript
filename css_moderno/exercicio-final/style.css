@@ -65,6 +65,7 @@ header{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 16px;
@@ -91,7 +92,7 @@ header{
     background-color: darkgray;
     padding: 20px;
     gap: 20px;
-    min-height: auto;
+    height: fit-content;
 }
 
 .paragrafo-extra{
@@ -113,4 +114,30 @@ footer{
 
 #footer-id{
     padding-right: 5px;
+}
+
+@media (max-width: 768px){
+    .content{
+        display: flex;
+        align-items: center;
+    }
+
+    .main-img{
+        width: 280px;
+        justify-content: center;
+    }
+    
+    .extra-img{
+        width: 280px;
+    }
+
+    .main{
+        font-size: 16px;
+
+    }
+    .extra{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
