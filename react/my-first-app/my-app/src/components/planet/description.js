@@ -3,7 +3,7 @@ const PlanetDescription = (props) => {
         return (
             <div>
                 <p>{props.description}</p>
-                <a href={props.link}>Link</a>
+                <a href={props.link} target='_blank'>Link</a>
             </div>
         )
     }

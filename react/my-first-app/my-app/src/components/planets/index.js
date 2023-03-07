@@ -1,28 +1,59 @@
-import { Fragment } from "react"
+import { useState } from "react"
 import Planet from "../planet"
 import  './style.css'
+import React from "react"
+import Form from './form'
 
 const clickOnPlanet = (name) => {
     console.log('Planeta' + name + ' foi clicado')
 }
 
-const planets = () => {
+async function getPlanets() {
+    let res = await fetch('http://localhost:3000/api/planets.json')
+    let data = res.json()
+    return data
+}
+
+
+const Planets = () => {
+    const [show,setShow] = useState(false)
+    const [planets, setPlanets] = useState([])
+
+    const AddPlanet = (planet) => {
+        setPlanets([...planets, planet])
+    }    
+
+    const showPlanet = event => {
+        setShow(current => !current)
+        getPlanets().then(data => {
+            setPlanets(data['planets'])
+        })
+        }
+
+    // useEffect(() => {
+    //     getPlanets().then(data => {
+    //         setPlanets(data['planets'])
+    //     })
+    // }, [show])
+
     return (
-        <Fragment>
+        <div>
             <h2>Planet List</h2>
-            <ul className='list'>
-                <li>
-                    <Planet name="Saturno" img_url="https://4.bp.blogspot.com/-vL1jjVdUvlM/T0oYItt4SPI/AAAAAAAADDA/Oh2iiMg7PEI/s1600/PLANETA+SATURNO.jpg" description ="teste" link="https://pt.wikipedia.org/wiki/Saturno_(planeta)"  clickOnPlanet={clickOnPlanet} underline={true}></Planet>
-                </li>
-                <li>
-                    <Planet name="Júpiter" img_url="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/800px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg" description="teste" link="https://pt.wikipedia.org/wiki/J%C3%BApiter_(planeta)" clickOnPlanet={clickOnPlanet} underline={false}></Planet>
-                </li>
-                <li>
-                    <Planet name="Netuno" img_url="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/800px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg" description="teste" clickOnPlanet={clickOnPlanet} underline={true}></Planet>
-                </li>
-            </ul>
-        </Fragment>
+            <hr></hr>
+            {!show && (
+                <button onClick={showPlanet}>Mostrar Planetas</button>
+            )}
+            {show && (
+                <div>
+                    <button id='titlebutton' onClick={showPlanet}>Fechar Planetas</button>
+                    <Form addPlanet={AddPlanet} ></Form>
+                        {planets.map((n) =>                        
+                            <Planet name={n.name} description={n.description} img_url={n.img_url} link={n.link} clickOnPlanet={clickOnPlanet} underline={false} id={n.id}></Planet>                           
+                        )} 
+                </div>
+            )}
+        </div> 
     )
 }
 
-export default planets;
+export default Planets;
