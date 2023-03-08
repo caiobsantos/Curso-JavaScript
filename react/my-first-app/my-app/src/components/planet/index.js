@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import PlanetDescription from "./description"
 import './style.css'
 import SatelliteForm from "./form";
+import {Link} from "react-router-dom";
 
 
 async function getSatellites(planet){
@@ -26,7 +27,9 @@ const Planet = (props) =>{
     
     return(
         <Fragment>
-            {props.underline ?  <h3><u>{props.name}</u></h3> : <h3>{props.name}</h3>}
+            <Link to="/planet/" params={{ id: props.id}}>
+                <h3>{props.name}</h3>
+            </Link>
             <PlanetDescription description={props.description} link={props.link}></PlanetDescription>
             <PlanetImg img_url={props.img_url} name={props.name}  clickOnPlanet={props.clickOnPlanet}></PlanetImg>
             <h4>Satélites: </h4>
