@@ -27,7 +27,7 @@ const Planet = (props) =>{
     
     return(
         <Fragment>
-            <Link to="/planet">
+            <Link to={{pathname: `/planet/${props.id}`}} params={{ id: props.id }}>
                 <h3>{props.name}</h3>
             </Link>
             <PlanetDescription description={props.description} link={props.link}></PlanetDescription>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Planet from "../planet"
 import  './style.css'
 import React from "react"
@@ -25,16 +25,13 @@ const Planets = () => {
 
     const showPlanet = event => {
         setShow(current => !current)
+        }
+
+    useEffect(() => {
         getPlanets().then(data => {
             setPlanets(data['planets'])
         })
-        }
-
-    // useEffect(() => {
-    //     getPlanets().then(data => {
-    //         setPlanets(data['planets'])
-    //     })
-    // }, [show])
+    }, [show])
 
     return (
         <div>
@@ -46,7 +43,7 @@ const Planets = () => {
             {show && (
                 <div>
                     <button id='titlebutton' onClick={showPlanet}>Fechar Planetas</button>
-                    <Form addPlanet={AddPlanet} ></Form>
+                    <Form addPlanet={AddPlanet}></Form>
                         {planets.map((n) =>                        
                             <Planet name={n.name} description={n.description} img_url={n.img_url} link={n.link} clickOnPlanet={clickOnPlanet} underline={false} id={n.id}></Planet>                           
                         )} 

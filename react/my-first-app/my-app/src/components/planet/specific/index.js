@@ -1,7 +1,20 @@
+import { useParams, useNavigate } from "react-router-dom";
 
-const SpecificPlanet = (props) => {
+
+const SpecificPlanet = () => {
+    
+    const {id} = useParams();
+    let navigate = useNavigate();
+
+    const goRoot = () => {
+        navigate('/')
+    }
+
     return(
-        <h1>{props.id}</h1>
+        <div>
+            <h1>{id}</h1>
+            <button onClick={goRoot}>Voltar</button>
+        </div>
     )
 }
 
