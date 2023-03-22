@@ -59,7 +59,7 @@ document.getElementById('copyToClipboard').addEventListener('click', function(ev
     const button = ev.currentTarget;
     button.innerText = 'Copied!';
     button.classList.add('success')
-    navigator.clipboard.writeText(input.value)
+    navigator.clipboard.writeText(resultInput.value)
     setTimeout(function(){
     button.innerText = 'Copy';
     button.classList.remove('success')
